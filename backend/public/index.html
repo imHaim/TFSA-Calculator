@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TFSA Contribution Limit Calculator</title>
+    <!-- Responsive Meta Tag -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Open+Sans&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Skip to Content Link -->
+    <a href="#main-content" class="visually-hidden-focusable">Skip to main content</a>
+
+    <!-- Navbar Section -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm" role="navigation">
+        <!--
+        <div class="container">
+            <a class="navbar-brand" href="#">
+             
+            <img src="assets/logo-placeholder.png" alt="Company Logo" width="30" height="30" class="d-inline-block align-text-top">
+            TFSA Calculator
+            </a>
+        </div>-->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="#calculator-section">Calculator</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#explanation-section">About TFSA</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#historical-data-section">Historical Data</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#faq-section">FAQs</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main id="main-content" role="main">
+
+        <!-- Calculator Section -->
+        <section class="section bg-light py-5" id="calculator-section">
+            <div class="container">
+                <h1 class="display-5 text-center mb-4">Calculate Your TFSA Contribution Limit</h1>
+                <div class="card shadow-lg mx-auto" style="max-width: 600px;">
+                    <div class="card-body">
+                        <form id="tfsa-form" class="text-center">
+                            <!-- Birthdate Picker -->
+                            <div class="mb-3">
+                                <label for="birthdateInput" class="form-label">Select Your Birthdate</label>
+                                <input type="date" id="birthdateInput" class="form-control form-control-lg w-50 mx-auto" required>
+                            </div>
+
+                            <!-- Contribution Slider -->
+                            <div class="mb-3">
+                                <label for="contributedInput" class="form-label">How much have you already contributed?</label>
+                                <input type="range" class="form-range" min="0" max="95000" step="500" id="contributedInput">
+                                <p>Amount Contributed: $<span id="contributedAmount">0</span></p>
+                            </div>
+
+                            <!-- Real-Time Result -->
+                            <div class="result mt-4 text-center">
+                                <h5 id="resultMessage" class="text-success"></h5>
+                            </div>
+                        </form>
+
+                        <!-- Projection Chart -->
+                        <canvas id="projectionChart" class="mt-5"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About TFSA Section -->
+        <section class="section py-5 bg-white" id="explanation-section">
+            <div class="container">
+                <h2 class="display-5 text-center mb-4">About TFSA</h2>
+                <p>
+                    The <strong>Tax-Free Savings Account (TFSA)</strong> is a flexible investment account that allows Canadians to earn tax-free investment income. Introduced in 2009, it has become a cornerstone for personal savings and financial planning.
+                </p>
+
+                <h3>Key Benefits</h3>
+                <ul>
+                    <li><i class="fas fa-check-circle icon"></i><strong> Tax-Free Growth:</strong> All earnings within the TFSA are tax-free.</li>
+                    <li><i class="fas fa-check-circle icon"></i><strong> Flexible Withdrawals:</strong> Withdraw funds at any time without penalties.</li>
+                    <li><i class="fas fa-check-circle icon"></i><strong> No Impact on Benefits:</strong> Does not affect eligibility for federal benefits.</li>
+                    <li><i class="fas fa-check-circle icon"></i><strong> Variety of Investments:</strong> Hold cash, stocks, bonds, and more.</li>
+                </ul>
+
+
+                <h3>How Contributions Work</h3>
+                <p>
+                    Every year, the Canadian government sets a maximum contribution limit for TFSAs. This limit is indexed to inflation and adjusted periodically. If you don’t contribute the full amount in any given year, your unused contribution room is carried forward indefinitely. This allows you to catch up on contributions later.
+                </p>
+
+                <h3>Withdrawals</h3>
+                <p>
+                    Withdrawals from a TFSA are entirely tax-free. If you withdraw any amount, it doesn’t reduce your total contribution limit. Instead, the withdrawn amount is added back to your available contribution room for the following calendar year.
+                </p>
+
+                <h3>History of the TFSA</h3>
+                <p>
+                    The TFSA was introduced by the Canadian government in 2009 to encourage saving and investing among Canadians. Over the years, it has become a popular tool for retirement planning, emergency funds, and short-term financial goals.
+                </p>
+            </div>
+        </section>
+
+        <!-- Historical Data Section -->
+        <section class="section py-5 bg-light" id="historical-data-section">
+            <div class="container">
+                <h2 class="display-5 text-center mb-4">Historical TFSA Contribution Limits</h2>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Year</th>
+                                <th>Contribution Limit</th>
+                                <th>Cumulative Limit</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyTableBody">
+                            <!-- Rows will be dynamically inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="section py-5 bg-white" id="faq-section">
+            <div class="container">
+                <h2 class="display-5 text-center mb-4">FAQs</h2>
+
+                <h3>Frequently Asked Questions</h3>
+                <div class="accordion" id="faqAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faq1">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqOne" aria-expanded="true" aria-controls="faqOne">
+                                What happens if I over-contribute to my TFSA?
+                            </button>
+                        </h2>
+                        <div id="faqOne" class="accordion-collapse collapse show" aria-labelledby="faq1" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Over-contributing to your TFSA will result in a penalty tax of 1% per month on the excess amount until it is withdrawn.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faq2">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqTwo" aria-expanded="false" aria-controls="faqTwo">
+                                Can I replace the money I withdraw from my TFSA?
+                            </button>
+                        </h2>
+                        <div id="faqTwo" class="accordion-collapse collapse" aria-labelledby="faq2" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Yes, but only in the next calendar year. Any withdrawals made in the current year cannot be re-contributed until the next year.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faq3">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqThree" aria-expanded="false" aria-controls="faqThree">
+                                Is there an age limit for contributing to a TFSA?
+                            </button>
+                        </h2>
+                        <div id="faqThree" class="accordion-collapse collapse" aria-labelledby="faq3" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                No, unlike the RRSP which has an age limit of 71, there is no upper age limit for contributing to a TFSA.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faq4">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqFour" aria-expanded="false" aria-controls="faqFour">
+                                Can non-residents of Canada contribute to a TFSA?
+                            </button>
+                        </h2>
+                        <div id="faqFour" class="accordion-collapse collapse" aria-labelledby="faq4" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Non-residents of Canada are not eligible to contribute to a TFSA. If they do, they will be subject to a 1% tax for each month the contribution remains in the account.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Add more FAQs as needed -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="footer bg-primary text-white text-center py-3">
+        <div class="container">
+            <p class="mb-0">TFSA Calculator &copy; 2024. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
